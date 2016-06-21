@@ -184,6 +184,15 @@ syntax for form:
 to link submit button, create method in controller:
 
   def create
-    render plain: params[:article].inspect
+    #This simply shows in browser:
+    #render plain: params[:article].inspect
+    @article = Article.new(article_params)
+    #can not get infor directly from params
+    @article.save
+    redirect_to articles_path(@article)
   end
   
+  private
+  def article_params
+    params.require(:article).permit(:title, :description)
+  end
