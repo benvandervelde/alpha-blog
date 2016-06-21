@@ -19,8 +19,10 @@ git init
 ****git status
 ****'lists tracked files
 
-git commit -m "Create rails app and setup homepage"
+****git commit -m "Create rails app and setup homepage"
 'saves in git with a message
+
+****git push
 
 git checkout -f
 
@@ -152,3 +154,36 @@ In model:
 If error in adding to database:
   article.errors.any?
   article.errors.full_messages
+  
+  
+  
+  
+***
+Adding functionality to webpage
+***
+  
+Add the following to config/routes.rb:
+  resources :articles
+this adds a load of routes (rake routes to check)
+
+
+***FORM HELPERS***
+***(guides.rubyonrails.org/form_helpers.html)***
+
+syntax for form:
+  <%= form_for @article do |f| %>
+  <p>
+    <%= f.label :title %><br/>
+    <%= f.text_field :title %>
+  </p>
+  etc....
+  
+  <%= f.submit %>
+  *submit button
+  
+to link submit button, create method in controller:
+
+  def create
+    render plain: params[:article].inspect
+  end
+  
