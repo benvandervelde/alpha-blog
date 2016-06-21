@@ -1,4 +1,4 @@
-
+**GIT**
 
 git --version
 
@@ -13,14 +13,142 @@ initialize git:
 
 git init
 
-git add -A
-'tracks files
+****git add -A
+****'tracks files
 
-git status
-'lists tracked files
+****git status
+****'lists tracked files
 
 git commit -m "Create rails app and setup homepage"
 'saves in git with a message
 
 git checkout -f
 
+
+**HEROKU**
+
+login to heroku
+create app in heroku:
+  -> heroku create
+push app to heroku:
+  -> git push heroku master
+  
+rename app:
+  -> heroku rename ...
+
+
+
+Need to be able to:
+  1. Create
+  2. Read
+  3. Update
+  4. Delete
+  C-R-U-D
+
+generates a database:
+  -> rails generate scaffold Article title:string description:text
+
+run migration file to create the actual table:
+  -> rake db:migrate  
+  
+
+
+Naming convention in Rails:
+
+model name: Article
+model name - > singular, first letter uppercase (Article)
+table name - > plural, lower case of model name (articles)
+model name filename -> all lowercase but singular (article.rb)
+controller name -> plural of model (articles_controller.rb)
+
+i.e.
+model name: USER
+table name: users
+model name filename: user.rb
+controller name: users_controller.rb
+
+***to create table:
+  rails generate migration create_model.name
+  
+find migration folder in db
+add any other colums in create_table:
+    t.type :name
+    i.e. t.string :title
+
+***t.timestamps adds both created at and updated at***
+
+to delete table:
+  rake db:rollback
+then you can add any missed columns by starting again (if you want to add another column)
+BUT BETTER To:::
+
+
+Create new migration file:
+  rails generate migration add_newcolumn_to_modelname
+  (i.e. rails generate migration add_description_to_articles)
+  
+Go to new migration folder
+Add column to new method:
+  add_column :tablename, :attributename, :type
+  (i.e. add_column :articles, :description, :text)
+
+Also add these if didn't do t.timestamps:
+  add_column :articles, :created_at, :datetime
+  add_column :articles, :updated_at, :datetime
+
+
+Then:
+  rake db:migrate
+
+
+
+To check database, go to rails console:
+  rails console
+  
+  Article.all(shows all lines)
+  
+  Article(shows attributes and type of each)
+  
+  article = Article.new
+  article.title = "This is..."
+  article.description = "This is..."
+  article.save
+  
+Note that times are automatically done  
+
+  article
+  'Shows the info of the object
+  
+Other methods of adding info:
+  article = Article.new(title: "This is...", description: "This is...")
+  article.save
+  
+  Article.create(title: "This is...", description: "This is...")
+  'No need to save as this one goes directly
+
+
+To edit Article
+Grab article
+Make change
+Save article:
+
+  article = Article.find(2) *This 2 is the id
+  article.title = "New Title"
+  article.save
+  
+To delete:
+  article = Article.find(x)
+  article.destroy
+  
+  
+
+
+Validations enforce constraints on new entries to databse:
+
+In model:
+  validates :title, presence: true
+
+
+If error in adding to database:
+  article.errors.any?
+  article.errors.full_messages
