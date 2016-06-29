@@ -293,3 +293,10 @@ Also add update (equiv to create method) method to article controller
   ***
   
   <%= link_to "This is where it links to", edit_article_path etc... %>
+  
+  ***
+  Partial
+  ***
+  
+  start view with _
+  <%= render 'form' %>
