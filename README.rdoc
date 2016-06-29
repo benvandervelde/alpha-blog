@@ -170,6 +170,8 @@ this adds a load of routes (rake routes to check)
 ***FORM HELPERS***
 ***(guides.rubyonrails.org/form_helpers.html)***
 
+***CREATE***
+
 syntax for form:
   <%= form_for @article do |f| %>
   <p>
@@ -183,16 +185,111 @@ syntax for form:
   
 to link submit button, create method in controller:
 
+  Unvalidated:
+    def create
+      #This simply shows in browser:
+      #render plain: params[:article].inspect
+      @article = Article.new(article_params)
+      #can not get infor directly from params
+      @article.save
+      redirect_to article_path(@article)
+    end
+  
+  
+  Validated:
+  
   def create
-    #This simply shows in browser:
-    #render plain: params[:article].inspect
     @article = Article.new(article_params)
-    #can not get infor directly from params
-    @article.save
-    redirect_to articles_path(@article)
+    if @article.save
+      flash[:notice] = "Article was successfully created"
+      redirect_to article_path(@article)
+    else
+      render 'new'
+    end
+  end
+  
+  def show #Adds show method, this is where page redirects to after successful addition
+    @article = Article.find(params[:id])
   end
   
   private
-  def article_params
+  
+  def article_params #Gets parameters to new article
     params.require(:article).permit(:title, :description)
   end
+  
+To show this flash notice, this must be added to the
+Overall body of the page. this is in:
+views/layouts/application.html.erb
+add in this code to the body:
+  
+  #for each msg, display it
+  <% flash.each do |name, msg| %>
+    <ul>
+      <li><%= msg %></li>
+    </ul>
+  <% end %>
+  
+Also need to add to article/show.html.erb:
+
+  <h1>Showing selected article</h1>
+
+  <p>
+    Title: <%= @article.title %>
+  </p>
+
+  <p>
+    Description: <%= @article.description %>
+  </p>
+
+  
+
+Then, to show the errors that have occured if article is not added:
+This redirects to render 'new' so...
+Add the following to to new view in articles: new.html.erb:
+
+  <% if @article.errors.any? %>
+  <h3>The following errors prevented the article from getting created:</h3>
+  <ul>
+    <% @article.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %> 
+  </ul>
+  <% end %>
+  #This adds in each error message in a list
+  
+
+
+
+
+
+***UPDATE***
+
+Copy all code from new.html.erb to edit.html.erb
+Uses same structure
+
+Add edit (equiv to new method) method to article controller
+  
+  def edit
+    @article = Article.find(params[:id])
+  end
+  
+Also add update (equiv to create method) method to article controller
+
+  def update
+    @article = Article.find(params[:id])
+    if @article.update(article_params)
+      flash[:notice] = "Article was successfully updated"
+      redirect_to article_path(@article)
+    else
+      render 'edit'
+    end
+  end
+  
+  
+  
+  ***
+  Add link in page
+  ***
+  
+  <%= link_to "This is where it links to", edit_article_path etc... %>
