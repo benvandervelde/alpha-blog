@@ -28,7 +28,7 @@ git checkout -f
 
 
 **HEROKU**
-
+remember to change gemfile
 login to heroku
 create app in heroku:
   -> heroku create
@@ -300,3 +300,9 @@ Also add update (equiv to create method) method to article controller
   
   start view with _
   <%= render 'form' %>
+  
+  
+  ***
+  CODE IN APPLICATION.html.erb
+  ***
+  Any code in the body here will appear on all pages 
