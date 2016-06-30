@@ -1,0 +1,98 @@
+<!doctype html>
+<hmtl>
+<head>
+	<title>My Webpage</title>
+	
+	<meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type="text/css">
+    
+    h1 {
+    	text-align: center;
+    	position: relative;
+    	top: 20px;
+    	font-size: 48px;
+    }
+    
+    img {
+    	width: 54pc;
+    	height: 18pc;
+    	position: relative;
+    	top:-5px;
+    	left:200px;
+    	border-radius: 30px;
+    }
+    
+    .left-text {
+    	text-align: center;
+    	position: relative;
+    	left: 100px;
+    	width:450px;
+    }
+    
+    .right-text {
+    	text-align: center;
+    	position: relative;
+    	width:450px;
+    	top: -142px;
+    	left: 650px;
+    }
+    
+    #middle-border {
+    	position: relative;
+    	top: -302px;
+    	left: 620px;
+    }
+    
+    .link_to_about {
+      position:absolute;
+      left:1000px;
+      border: 1px dotted blue;
+      padding:3px;
+      color:#767676;
+      background-color:#F1F1F1;
+    }
+    
+    .link_to_articles {
+      position:absolute;
+      left:900px;
+      border: 1px dotted blue;
+      padding:3px;
+      color:#767676;
+      background-color:#F1F1F1;
+    }
+
+    </style>
+	
+</head>
+
+<body>
+<div class="link_to_about"><%= link_to 'About', about_path %></div>
+<div class="link_to_articles"><%= link_to 'Articles', articles_path %></div>
+<h1 class = "title">My Webpage</h1>
+
+<img src = "https://dncache-mauganscorp.netdna-ssl.com/thumbseg/1408/1408659-bigthumbnail.jpg">
+
+<hr>
+
+<div class="left-text">
+	<p>This is some text on the left hand side, it's green and should be aligned on the left.
+	This is some text on the left hand side, it's green and should be aligned on the left.
+	This is some text on the left hand side, it's green and should be aligned on the left.
+	This is some text on the left hand side, it's green and should be aligned on the left.
+	This is some text on the left hand side, it's green and should be aligned on the left.</p>
+</div>
+
+<div class="right-text">
+	<p>But this is some text on the right hand side, it's blue and should be aligned on the right.
+	But this is some text on the right hand side, it's blue and should be aligned on the right.
+	But this is some text on the right hand side, it's blue and should be aligned on the right.
+	But this is some text on the right hand side, it's blue and should be aligned on the right.
+	But this is some text on the right hand side, it's blue and should be aligned on the right.</p>
+</div>
+
+<div id="middle-border" style="border-left:thin #111111 solid; height:200px;" />
+
+
+</body>
