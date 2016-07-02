@@ -34,6 +34,7 @@ create app in heroku:
   -> heroku create
 push app to heroku:
   -> git push heroku master
+  -> heroku run rake db:migrate
   
 rename app:
   -> heroku rename ...
@@ -306,3 +307,31 @@ Also add update (equiv to create method) method to article controller
   CODE IN APPLICATION.html.erb
   ***
   Any code in the body here will appear on all pages 
+  
+  
+  
+  ***Pagination***
+  
+  Add these two gems:
+  gem 'will_paginate', '3.0.7'
+  gem 'bootstrp-will_paginate', '0.0.10'
+  bundle install --without production
+  
+  to each thing you want to paginate:
+  add to index action i.e.
+    def index
+      @articles = Article.paginate(page: params[:page], per_page: 5)
+    end
+    
+  change index.html.erb
+    <div align="center">
+      <%= will_paginate %>
+    </div>
+    then code goes here(or render partial)
+    <div align="center">
+      <%= will_paginate %>
+    </div>
+    
+  
+***Gem for encrypting password***
+gem 'bcrypt', '~> 3.1.7' 
